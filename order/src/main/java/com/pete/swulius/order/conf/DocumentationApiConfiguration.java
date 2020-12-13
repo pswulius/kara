@@ -24,6 +24,9 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.DocExpansion;
+import springfox.documentation.swagger.web.UiConfiguration;
+import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
@@ -43,13 +46,18 @@ public class DocumentationApiConfiguration {
             .useDefaultResponseMessages(false);
     }
 
+    @Bean
+    public UiConfiguration uiConfig() {
+        return UiConfigurationBuilder.builder()
+                .docExpansion(DocExpansion.LIST) // or DocExpansion.NONE or DocExpansion.FULL
+                .build();
+    }
+
     private ApiInfo apiInfo() {
         ApiInfoBuilder builder = new ApiInfoBuilder();
         builder.title("Kara.io Order Service");
-        builder.description("Provides the rest functions for Kara.io Order services.");
+        builder.description("Provides the rest functions for Kara.io <strong>Order</strong> services.");
         builder.version(OrderApplication.class.getPackage().getImplementationVersion());
-        builder.license("Apache License, Version 2.0");
-        builder.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0");
         return builder.build();
     }
 }

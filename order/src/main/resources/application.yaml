@@ -7,3 +7,5 @@ cassandra:
   keyspaceName: kara
   localDataCenterName: datacenter1
   dropSchema: false
+
+

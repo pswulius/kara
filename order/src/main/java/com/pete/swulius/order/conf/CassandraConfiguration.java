@@ -7,6 +7,9 @@ import static com.datastax.oss.driver.api.querybuilder.SchemaBuilder.dropKeyspac
 import java.net.InetSocketAddress;
 import java.nio.file.Paths;
 
+import com.datastax.driver.extras.codecs.joda.InstantCodec;
+import com.datastax.oss.driver.api.core.type.codec.TypeCodec;
+import com.datastax.oss.driver.api.core.type.codec.registry.MutableCodecRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,26 +88,31 @@ public class CassandraConfiguration {
     @Bean
     public CqlSession cqlSession() {
         logger.info("Creating Keyspace and expected table in Cassandra if not present.");
-        try(CqlSession tmpSession = CqlSession.builder()
-                //.addContactPoint(new InetSocketAddress(getCassandraHost(), getCassandraPort()))
-                //.withLocalDatacenter(getLocalDataCenterName())
-                .withCloudSecureConnectBundle(Paths.get("secure-connect-killrvideocluster.zip"))
-                .withAuthCredentials("KVUser","KVPassword")
-                .build()) {
-            if (isDropSchema()) {
-                //tmpSession.execute(dropKeyspace(keyspace()).ifExists().build());
-                logger.debug("+ Keyspace '{}' has been dropped (if existed)", keyspace());
-            }
-            //tmpSession.execute(createKeyspace(keyspace()).ifNotExists().withSimpleStrategy(1).build());
-            logger.debug("+ Keyspace '{}' has been created (if needed)", keyspace());
-        }
-        return CqlSession.builder()
+
+//        try(CqlSession tmpSession = CqlSession.builder()
+//                //.addContactPoint(new InetSocketAddress(getCassandraHost(), getCassandraPort()))
+//                //.withLocalDatacenter(getLocalDataCenterName())
+//                .withCloudSecureConnectBundle(Paths.get("secure-connect-killrvideocluster.zip"))
+//                .withAuthCredentials("KVUser","KVPassword")
+//                .build()) {
+//            if (isDropSchema()) {
+//                //tmpSession.execute(dropKeyspace(keyspace()).ifExists().build());
+//                logger.debug("+ Keyspace '{}' has been dropped (if existed)", keyspace());
+//            }
+//            //tmpSession.execute(createKeyspace(keyspace()).ifNotExists().withSimpleStrategy(1).build());
+//            logger.debug("+ Keyspace '{}' has been created (if needed)", keyspace());
+//        }
+
+        CqlSession session = CqlSession.builder()
                 //.addContactPoint(new InetSocketAddress(getCassandraHost(), getCassandraPort()))
                 .withCloudSecureConnectBundle(Paths.get("secure-connect-killrvideocluster.zip"))
                 .withAuthCredentials("KVUser","KVPassword")
                 .withKeyspace(keyspace())
+                //.addTypeCodecs(InstantCodec.instance)
                 //.withLocalDatacenter(getLocalDataCenterName())
                 .build();
+
+        return session;
     }
 
     /**

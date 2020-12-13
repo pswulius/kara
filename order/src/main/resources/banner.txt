@@ -6,5 +6,5 @@ ${AnsiColor.BRIGHT_RED}  \ \  \___|\ \  \_|\ \  \ \  \ \ \  \_|\ \       \|____|
 ${AnsiColor.BRIGHT_RED}   \ \__\    \ \_______\  \ \__\ \ \_______\        ____\_\  \ \____________\ \_______\ \_______\ \__\ \_______\____\_\  \
 ${AnsiColor.BRIGHT_RED}    \|__|     \|_______|   \|__|  \|_______|       |\_________\|____________|\|_______|\|_______|\|__|\|_______|\_________\
 ${AnsiColor.BRIGHT_RED}                                                   \|_________|                                                \|_________|
-${AnsiColor.BRIGHT_CYAN}App: Kara.io Demo OrderService
+${AnsiColor.BRIGHT_CYAN}    Kara.io Demo OrderService
 ${AnsiColor.DEFAULT}
