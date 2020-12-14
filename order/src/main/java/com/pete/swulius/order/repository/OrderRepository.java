@@ -31,20 +31,20 @@ import static com.datastax.oss.driver.api.querybuilder.relation.Relation.column;
 @Repository
 public class OrderRepository {
 
-    /** Logger for the class. */
     private static final Logger logger = LoggerFactory.getLogger(OrderRepository.class);
 
-    // Reservation Schema Constants
+    // Schema Constants
+    public static final CqlIdentifier ADDRESS_STREET        = CqlIdentifier.fromCql("street");
+    public static final CqlIdentifier ADDRESS_CITY          = CqlIdentifier.fromCql("city");
+    public static final CqlIdentifier ADDRESS_STATE         = CqlIdentifier.fromCql("state");
+    public static final CqlIdentifier ADDRESS_ZIPCODE       = CqlIdentifier.fromCql("zipcode");
+
     public static final CqlIdentifier TABLE_CUSTOMERS       = CqlIdentifier.fromCql("customers");
     public static final CqlIdentifier CUSTOMER_ID           = CqlIdentifier.fromCql("customerid");
     public static final CqlIdentifier CUSTOMER_EMAIL        = CqlIdentifier.fromCql("email");
     public static final CqlIdentifier CUSTOMER_NAME         = CqlIdentifier.fromCql("name");
     public static final CqlIdentifier CUSTOMER_PHONE        = CqlIdentifier.fromCql("phone");
     public static final CqlIdentifier CUSTOMER_ADDRESS      = CqlIdentifier.fromCql("address");
-    public static final CqlIdentifier ADDRESS_STREET        = CqlIdentifier.fromCql("street");
-    public static final CqlIdentifier ADDRESS_CITY          = CqlIdentifier.fromCql("city");
-    public static final CqlIdentifier ADDRESS_STATE         = CqlIdentifier.fromCql("state");
-    public static final CqlIdentifier ADDRESS_ZIPCODE       = CqlIdentifier.fromCql("zipcode");
 
     public static final CqlIdentifier TABLE_ORDERS          = CqlIdentifier.fromCql("orders");
     public static final CqlIdentifier ORDER_ID              = CqlIdentifier.fromCql("orderid");
