@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS kara.logs (
      added timestamp,
      city text,
      state text,
-     value tinyint,
+     value smallint,
      PRIMARY KEY( deviceid, added )
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS kara.logs_by_citystate (
     state text,
     added timestamp,
     deviceid uuid,
-    value tinyint,
+    value smallint,
     PRIMARY KEY( (city,state), deviceid, added )
 );
 

@@ -6,17 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 @Component
@@ -25,6 +20,7 @@ class SampleDataInitializer implements ApplicationListener<ApplicationReadyEvent
 
     private static final Logger logger = LoggerFactory.getLogger(SampleDataInitializer.class);
     private final CityStateRepository repository;
+    public static boolean isReady = false;
 
     public SampleDataInitializer(CityStateRepository repository) {
         this.repository = repository;
@@ -68,5 +64,7 @@ class SampleDataInitializer implements ApplicationListener<ApplicationReadyEvent
         {
             logger.info( count + " cities already added to database, skipping initialization");
         }
+
+        isReady = true;
     }
 }

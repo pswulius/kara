@@ -18,10 +18,10 @@ public class CityStateLog {
     @PrimaryKeyColumn(name = "state", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
     private String state;
 
-    @PrimaryKeyColumn(name = "deviceid", ordinal = 3, type = PrimaryKeyType.CLUSTERED)
+    @PrimaryKeyColumn(name = "deviceid", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
     private UUID deviceid;
 
-    @PrimaryKeyColumn(name = "added", ordinal = 4, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.ASCENDING)
+    @PrimaryKeyColumn(name = "added", ordinal = 3, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.ASCENDING)
     private Instant added;
 
     private Integer value;
