@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS kara.orders (
     added timestamp,
     customerid uuid,
     quantity tinyint,
-    PRIMARY KEY( orderid, added )
+    PRIMARY KEY( orderid )
 );
 
 DROP TABLE IF EXISTS kara.customer_orders;
