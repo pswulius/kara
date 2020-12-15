@@ -9,11 +9,13 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -28,26 +30,43 @@ class SampleDataInitializer implements ApplicationListener<ApplicationReadyEvent
         this.repository = repository;
     }
 
+
+    public void addCities()
+    {
+
+    }
+
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
-        Path csvPath = Paths.get("schema/cities.csv");
-        logger.info( "Adding sample date from: " + csvPath );
+        Long count = repository.count().block();
 
-        Flux<String> lFlux = Flux.using(
-                () -> Files.lines(csvPath),
-                Flux::fromStream,
-                Stream::close
-        );
+        if( count == 0 ) {
 
-        repository
-                .deleteAll()
-                .thenMany(
-                        Flux
-                                .from(lFlux)
-                                .map(line -> new CityState(line))
-                                .flatMap(repository::save)
-                )
-                .subscribe();
+            Path csvPath = Paths.get("schema/cities.csv");
+            logger.info("Adding sample date from: " + csvPath);
+
+            Flux<String> lFlux = Flux.using(
+                    () -> Files.lines(csvPath),
+                    Flux::fromStream,
+                    Stream::close
+            );
+
+            repository
+                    .deleteAll()
+                    .thenMany(
+                            Flux
+                                    .from(lFlux)
+                                    .map(line -> new CityState(line))
+                                    .flatMap(repository::save)
+                    )
+                    .concatWith(foo -> logger.info("Done adding sample data!"))
+                    .subscribe();
+        }
+        else
+        {
+            logger.info( count + " cities already added to database, skipping initialization");
+        }
     }
 }
