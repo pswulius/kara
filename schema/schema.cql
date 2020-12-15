@@ -1,14 +1,3 @@
-DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS customer_orders;
-DROP TABLE IF EXISTS foobar;
-DROP TABLE IF EXISTS city_states;
-DROP TABLE IF EXISTS devices;
-DROP TABLE IF EXISTS customer_devices;
-DROP TABLE IF EXISTS logs;
-DROP TABLE IF EXISTS logs_by_citystate;
-DROP TYPE IF EXISTS address;
-
 
 CREATE TYPE IF NOT EXISTS kara.address (
     street text,
@@ -17,7 +6,8 @@ CREATE TYPE IF NOT EXISTS kara.address (
     zipcode text
 );
 
-CREATE TABLE IF NOT EXISTS customers (
+DROP TABLE IF EXISTS kara.customers;
+CREATE TABLE IF NOT EXISTS kara.customers (
     customerid uuid,
     email text,
     name text,
@@ -26,7 +16,8 @@ CREATE TABLE IF NOT EXISTS customers (
     PRIMARY KEY ( customerid )
 );
 
-CREATE TABLE IF NOT EXISTS orders (
+DROP TABLE IF EXISTS kara.orders;
+CREATE TABLE IF NOT EXISTS kara.orders (
     orderid uuid,
     added timestamp,
     customerid uuid,
@@ -34,7 +25,8 @@ CREATE TABLE IF NOT EXISTS orders (
     PRIMARY KEY( orderid, added )
 );
 
-CREATE TABLE IF NOT EXISTS customer_orders (
+DROP TABLE IF EXISTS kara.customer_orders;
+CREATE TABLE IF NOT EXISTS kara.customer_orders (
     customerid uuid,
     added timestamp,
     orderid uuid,
@@ -42,40 +34,45 @@ CREATE TABLE IF NOT EXISTS customer_orders (
     PRIMARY KEY( customerid, added )
 );
 
-CREATE TABLE IF NOT EXISTS city_states (
-    city text,
-    state text,
-    population int,
-    density smallint,
-    timzone text,
-    PRIMARY KEY( (state, city) )
+DROP TABLE IF EXISTS kara.city_states;
+CREATE TABLE IF NOT EXISTS kara.city_states (
+     city text,
+     state text,
+     population int,
+     density int,
+     timezone text,
+     PRIMARY KEY( (state, city) )
 );
 
-CREATE TABLE IF NOT EXISTS devices (
-    deviceid uuid,
-    barcode text,
-    assigned_name text,
-    PRIMARY KEY( deviceid )
+DROP TABLE IF EXISTS kara.devices;
+CREATE TABLE IF NOT EXISTS kara.devices (
+     deviceid uuid,
+     barcode text,
+     assigned_name text,
+     PRIMARY KEY( deviceid )
 );
 
-CREATE TABLE IF NOT EXISTS customer_devices (
-    customerid uuid,
-    deviceid uuid,
-    barcode text,
-    assigned_name text,
-    PRIMARY KEY( customerid, deviceid )
+DROP TABLE IF EXISTS kara.customer_devices;
+CREATE TABLE IF NOT EXISTS kara.customer_devices (
+     customerid uuid,
+     deviceid uuid,
+     barcode text,
+     assigned_name text,
+     PRIMARY KEY( customerid, deviceid )
 );
 
-CREATE TABLE IF NOT EXISTS logs (
-    deviceid uuid,
-    added timestamp,
-    city text,
-    state text,
-    value tinyint,
-    PRIMARY KEY( deviceid, added )
+DROP TABLE IF EXISTS kara.logs;
+CREATE TABLE IF NOT EXISTS kara.logs (
+     deviceid uuid,
+     added timestamp,
+     city text,
+     state text,
+     value tinyint,
+     PRIMARY KEY( deviceid, added )
 );
 
-CREATE TABLE IF NOT EXISTS logs_by_citystate (
+DROP TABLE IF EXISTS kara.logs_by_citystate;
+CREATE TABLE IF NOT EXISTS kara.logs_by_citystate (
     city text,
     state text,
     added timestamp,
@@ -83,24 +80,4 @@ CREATE TABLE IF NOT EXISTS logs_by_citystate (
     value tinyint,
     PRIMARY KEY( (city,state), deviceid, added )
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

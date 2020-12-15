@@ -22,6 +22,32 @@ public class CityState {
 
     }
 
+    @Override
+    public String toString() {
+        return "CityState{" +
+                "city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", population=" + population +
+                ", density=" + density +
+                ", timezone='" + timezone + '\'' +
+                '}';
+    }
+
+    public CityState(String aCommaSeperatedLine) {
+        try {
+            String[] split = aCommaSeperatedLine.split(",");
+            city = split[0];
+            state = split[1];
+            population = Integer.parseInt(split[2]);
+            density = Integer.parseInt(split[3]);
+            timezone = split[4];
+        }
+        catch( Exception e )
+        {
+            System.out.println("ERROR with line: " + aCommaSeperatedLine);
+        }
+    }
+
     public String getCity() {
         return city;
     }

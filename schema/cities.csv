@@ -1,4 +1,3 @@
-name,state,population,density,timezone
 New York,NY,18713220,10715,America/New_York
 Los Angeles,CA,12750807,3276,America/Los_Angeles
 Chicago,IL,8604203,4574,America/Chicago
@@ -5728,7 +5727,7 @@ Combee Settlement,FL,6323,1235,America/New_York
 Lionville,PA,6323,986,America/New_York
 White Oak,TX,6322,267,America/Chicago
 Barnhart,MO,6318,478,America/Chicago
-"Islamorada, Village of Islands",FL,6317,378,America/New_York
+Islamorada Village of Islands,FL,6317,378,America/New_York
 Lakeview,NY,6317,2437,America/New_York
 Mascotte,FL,6315,196,America/New_York
 South Run,VA,6308,963,America/New_York
@@ -19494,7 +19493,7 @@ Fairview Beach,VA,450,600,America/New_York
 Mount Auburn,IL,450,174,America/Chicago
 Funston,GA,450,152,America/New_York
 Holton,IN,450,96,America/Indiana/Indianapolis
-Lake Mykee Town,MO,450,295.2,America/Chicago
+Lake Mykee Town,MO,450,295,America/Chicago
 Allen,SD,450,53,America/Denver
 Anderson,SD,450,177,America/Chicago
 Cobb,WI,449,194,America/Chicago
@@ -24362,7 +24361,7 @@ North Henderson,IL,174,296,America/Chicago
 Coin,IA,174,83,America/Chicago
 Bessie,OK,174,132,America/Chicago
 Orangeville,OH,174,90,America/New_York
-Mackenzie,MO,174,672.1,America/Chicago
+Mackenzie,MO,174,672,America/Chicago
 Ball Club,MN,174,24,America/Chicago
 Williams,MN,174,68,America/Chicago
 Leota,MN,174,49,America/Chicago
@@ -26823,7 +26822,7 @@ Vining,MN,78,26,America/Chicago
 Zenda,KS,78,134,America/Chicago
 Milan,KS,78,227,America/Chicago
 Spivey,KS,78,57,America/Chicago
-Dycusburg,KY,78,47.8,America/Chicago
+Dycusburg,KY,78,47,America/Chicago
 Bradley,SD,78,122,America/Chicago
 Lebanon,NE,77,184,America/Chicago
 Sattley,CA,77,14,America/Los_Angeles

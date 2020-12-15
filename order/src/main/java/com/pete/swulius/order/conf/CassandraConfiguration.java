@@ -72,12 +72,12 @@ public class CassandraConfiguration {
         logger.info("Creating Keyspace and expected table in Cassandra if not present.");
 
         CqlSession session = CqlSession.builder()
-                //.addContactPoint(new InetSocketAddress(getCassandraHost(), getCassandraPort()))
-                .withCloudSecureConnectBundle(Paths.get("secure-connect-killrvideocluster.zip"))
+                .addContactPoint(new InetSocketAddress(getCassandraHost(), getCassandraPort()))
+                //.withCloudSecureConnectBundle(Paths.get("secure-connect-killrvideocluster.zip"))
                 .withAuthCredentials("KVUser","KVPassword")
                 .withKeyspace(keyspace())
-                //.addTypeCodecs(InstantCodec.instance)
-                //.withLocalDatacenter(getLocalDataCenterName())
+                //.addTypeCodecs(InstantCodec.instance)s
+                .withLocalDatacenter(getLocalDataCenterName())
                 .build();
 
         return session;
