@@ -25,8 +25,7 @@ import java.util.UUID;
 @EnableAsync
 @EnableScheduling
 @Component
-public class DeviceSimulation
-{
+public class DeviceSimulation {
     private static final Logger logger = LoggerFactory.getLogger(DeviceSimulation.class);
     private static List<CityState> cities;
 
@@ -41,14 +40,13 @@ public class DeviceSimulation
     private KaraProperties kp;
 
 
-    @Scheduled(initialDelay=5000, fixedRate=5000)
+    @Scheduled(initialDelay = 5000, fixedRate = 5000)
     public void doSomething() {
 
-        if(!SampleDataInitializer.isReady || kp.run == false) return;
-        if(cslr.count().block() > kp.maxLogs) return;
+        if (!SampleDataInitializer.isReady || kp.run == false) return;
+        if (cslr.count().block() > kp.maxLogs) return;
 
-        if( cities == null)
-        {
+        if (cities == null) {
             cities = csr.findAll().collectList().block();
         }
 
@@ -57,18 +55,16 @@ public class DeviceSimulation
         List<CityStateLog> logs = createLogs();
         cslr.saveAll(logs).subscribe();
         long end = System.currentTimeMillis();
-        long diff = end-start;
+        long diff = end - start;
 
         logger.info("Generated [" + kp.logsPer + "] device logs in [" + diff + "ms]");
     }
 
 
-    private List<CityStateLog> createLogs()
-    {
+    private List<CityStateLog> createLogs() {
         List<CityStateLog> list = new ArrayList<CityStateLog>();
 
-        for( int i=0; i<kp.logsPer; i++ )
-        {
+        for (int i = 0; i < kp.logsPer; i++) {
             CityStateLog each = createLog();
             list.add(each);
         }
@@ -86,13 +82,13 @@ public class DeviceSimulation
         log.setAdded(Instant.now());
         log.setCity(cs.getCity());
         log.setState(cs.getState());
-        log.setValue(getRandomNumberInRange(0,200)); // fake glucose reading
+        log.setValue(getRandomNumberInRange(0, 200)); // fake glucose reading
         return log;
     }
 
 
     private CityState getRandomCityState() {
-        return cities.get(getRandomNumberInRange(0,cities.size()-1));
+        return cities.get(getRandomNumberInRange(0, cities.size() - 1));
     }
 
 
@@ -100,8 +96,6 @@ public class DeviceSimulation
         Random r = new Random();
         return r.ints(min, (max + 1)).findFirst().getAsInt();
     }
-
-
 
 
 }

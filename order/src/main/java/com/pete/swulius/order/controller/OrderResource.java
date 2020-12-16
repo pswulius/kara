@@ -29,7 +29,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api/v1/order")
-@Api(value = "/api/v1/order", description = "Order service rest resources", tags = "Order" )
+@Api(value = "/api/v1/order", description = "Order service rest resources", tags = "Order")
 public class OrderResource {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderResource.class);
@@ -39,7 +39,6 @@ public class OrderResource {
     public OrderResource(OrderRepository orderService) {
         this.orderService = orderService;
     }
-
 
 
     // -----------------
@@ -57,19 +56,19 @@ public class OrderResource {
 
     @RequestMapping(method = GET, value = "/{orderId}", produces = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find order with matching id", response = Order.class)
-    @ApiParam(name="orderId", value="id for an order", example = "4391e230-3c26-11eb-9680-3f1ca592bc5a", required=true )
+    @ApiParam(name = "orderId", value = "id for an order", example = "4391e230-3c26-11eb-9680-3f1ca592bc5a", required = true)
     @ApiResponse(code = 200, message = "Return an Order")
     public ResponseEntity<Order> findOrderById(
-            @ApiParam(name="orderId",
-                    value="id for an order",
+            @ApiParam(name = "orderId",
+                    value = "id for an order",
                     example = "4391e230-3c26-11eb-9680-3f1ca592bc5a",
-                    required=true )
-            @PathVariable(value = "orderId") String anOrderId ) {
+                    required = true)
+            @PathVariable(value = "orderId") String anOrderId) {
 
         logger.debug("Fetching order by id: " + anOrderId);
         Optional<Order> order = orderService.findOrderById(UUID.fromString(anOrderId));
 
-        if( order.isEmpty() ) {
+        if (order.isEmpty()) {
             logger.warn("Order not found with id [{}]", anOrderId);
             return ResponseEntity.notFound().build();
         }
@@ -117,16 +116,16 @@ public class OrderResource {
             @ApiResponse(code = 400, message = "Order id is blank or contains invalid characters (expecting alphanumeric)")
     })
     public ResponseEntity<Void> upsertOrder(
-            @ApiParam(name="orderId",
+            @ApiParam(name = "orderId",
                     example = "4391e230-3c26-11eb-9680-3f1ca592bc5a",
-                    value="Id for an order",
-                    required=true )
+                    value = "Id for an order",
+                    required = true)
             @PathVariable(value = "orderId") String orderId,
             @RequestBody OrderRequest anOrderRequest) {
         validateId(orderId);
         logger.debug("Request to update customer {}", orderId);
         HttpStatus returnedStatus = orderService.existsOrder(UUID.fromString(orderId)) ? HttpStatus.NO_CONTENT : HttpStatus.CREATED;
-        orderService.upsertOrder(new Order(UUID.fromString(orderId),anOrderRequest));
+        orderService.upsertOrder(new Order(UUID.fromString(orderId), anOrderRequest));
         return new ResponseEntity<>(returnedStatus);
     }
 

@@ -18,14 +18,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/api/v1/")
-@Api(value = "/api/v1/", description = "Log service rest resources", tags = "Log" )
+@Api(value = "/api/v1/", description = "Log service rest resources", tags = "Log")
 public class LogResource {
 
     private static final Logger logger = LoggerFactory.getLogger(LogResource.class);
 
     @Autowired
     private LogRepository service;
-
 
 
     // -----------------

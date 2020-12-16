@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface LogRepository extends ReactiveCrudRepository<Log,String> {
+public interface LogRepository extends ReactiveCrudRepository<Log, String> {
 
 }

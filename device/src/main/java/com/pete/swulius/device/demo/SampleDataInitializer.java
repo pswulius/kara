@@ -27,8 +27,7 @@ class SampleDataInitializer implements ApplicationListener<ApplicationReadyEvent
     }
 
 
-    public void addCities()
-    {
+    public void addCities() {
 
     }
 
@@ -38,7 +37,7 @@ class SampleDataInitializer implements ApplicationListener<ApplicationReadyEvent
 
         Long count = repository.count().block();
 
-        if( count == 0 ) {
+        if (count == 0) {
 
             Path csvPath = Paths.get("schema/cities.csv");
             logger.info("Adding sample date from: " + csvPath);
@@ -59,10 +58,8 @@ class SampleDataInitializer implements ApplicationListener<ApplicationReadyEvent
                     )
                     .concatWith(foo -> logger.info("Done adding sample data!"))
                     .subscribe();
-        }
-        else
-        {
-            logger.info( count + " cities already added to database, skipping initialization");
+        } else {
+            logger.info(count + " cities already added to database, skipping initialization");
         }
 
         isReady = true;

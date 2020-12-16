@@ -19,14 +19,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/api/v1/")
-@Api(value = "/api/v1/", description = "CityState service rest resources", tags = "City/State" )
+@Api(value = "/api/v1/", description = "CityState service rest resources", tags = "City/State")
 public class CityStateResource {
 
     private static final Logger logger = LoggerFactory.getLogger(CityStateResource.class);
 
     @Autowired
     private CityStateRepository service;
-
 
 
     // --------------------

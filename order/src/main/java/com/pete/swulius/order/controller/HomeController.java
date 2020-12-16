@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class HomeController {
-    
+
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html")
     public String redirectToDoc() {
         return new StringBuilder(""

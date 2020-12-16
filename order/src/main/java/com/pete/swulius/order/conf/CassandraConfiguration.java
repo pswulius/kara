@@ -46,18 +46,17 @@ public class CassandraConfiguration {
     public boolean dropSchema;
 
 
-
-
-    public CassandraConfiguration() {}
+    public CassandraConfiguration() {
+    }
 
     public CassandraConfiguration(
             String cassandraHost, int cassandraPort, String localDataCenterName,
-            String keyspaceName,  boolean dropSchema) {
+            String keyspaceName, boolean dropSchema) {
         super();
-        this.cassandraHost       = cassandraHost;
-        this.cassandraPort       = cassandraPort;
-        this.keyspaceName        = keyspaceName;
-        this.dropSchema          = dropSchema;
+        this.cassandraHost = cassandraHost;
+        this.cassandraPort = cassandraPort;
+        this.keyspaceName = keyspaceName;
+        this.dropSchema = dropSchema;
         this.localDataCenterName = localDataCenterName;
     }
 
@@ -74,7 +73,7 @@ public class CassandraConfiguration {
         CqlSession session = CqlSession.builder()
                 .addContactPoint(new InetSocketAddress(getCassandraHost(), getCassandraPort()))
                 //.withCloudSecureConnectBundle(Paths.get("secure-connect-killrvideocluster.zip"))
-                .withAuthCredentials("KVUser","KVPassword")
+                .withAuthCredentials("KVUser", "KVPassword")
                 .withKeyspace(keyspace())
                 //.addTypeCodecs(InstantCodec.instance)s
                 .withLocalDatacenter(getLocalDataCenterName())
@@ -87,30 +86,39 @@ public class CassandraConfiguration {
     public String getCassandraHost() {
         return cassandraHost;
     }
+
     public void setCassandraHost(String cassandraHost) {
         this.cassandraHost = cassandraHost;
     }
+
     public int getCassandraPort() {
         return cassandraPort;
     }
+
     public void setCassandraPort(int cassandraPort) {
         this.cassandraPort = cassandraPort;
     }
+
     public String getLocalDataCenterName() {
         return localDataCenterName;
     }
+
     public void setLocalDataCenterName(String localDataCenterName) {
         this.localDataCenterName = localDataCenterName;
     }
+
     public String getKeyspaceName() {
         return keyspaceName;
     }
+
     public void setKeyspaceName(String keyspaceName) {
         this.keyspaceName = keyspaceName;
     }
+
     public boolean isDropSchema() {
         return dropSchema;
     }
+
     public void setDropSchema(boolean dropSchema) {
         this.dropSchema = dropSchema;
     }

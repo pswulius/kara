@@ -17,8 +17,7 @@ public class OrderRequest implements Serializable {
     private Integer quantity;
 
 
-    public OrderRequest()
-    {
+    public OrderRequest() {
     }
 
     public UUID getCustomerId() {

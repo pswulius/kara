@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface CustomerDeviceRepository extends ReactiveCrudRepository<CustomerDevice,String> {
+public interface CustomerDeviceRepository extends ReactiveCrudRepository<CustomerDevice, String> {
 
 
 }

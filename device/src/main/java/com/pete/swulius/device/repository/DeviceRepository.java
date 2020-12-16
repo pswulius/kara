@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 
 
 @Repository
-public interface DeviceRepository extends ReactiveCrudRepository<Device,String> {
+public interface DeviceRepository extends ReactiveCrudRepository<Device, String> {
 
     @Query("select * from tweet")
     Mono<Device> findDeviceById(String anId); // for demo purposes

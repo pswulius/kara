@@ -34,23 +34,23 @@ public class OrderRepository {
     private static final Logger logger = LoggerFactory.getLogger(OrderRepository.class);
 
     // Schema Constants
-    public static final CqlIdentifier ADDRESS_STREET        = CqlIdentifier.fromCql("street");
-    public static final CqlIdentifier ADDRESS_CITY          = CqlIdentifier.fromCql("city");
-    public static final CqlIdentifier ADDRESS_STATE         = CqlIdentifier.fromCql("state");
-    public static final CqlIdentifier ADDRESS_ZIPCODE       = CqlIdentifier.fromCql("zipcode");
+    public static final CqlIdentifier ADDRESS_STREET = CqlIdentifier.fromCql("street");
+    public static final CqlIdentifier ADDRESS_CITY = CqlIdentifier.fromCql("city");
+    public static final CqlIdentifier ADDRESS_STATE = CqlIdentifier.fromCql("state");
+    public static final CqlIdentifier ADDRESS_ZIPCODE = CqlIdentifier.fromCql("zipcode");
 
-    public static final CqlIdentifier TABLE_CUSTOMERS       = CqlIdentifier.fromCql("customers");
-    public static final CqlIdentifier CUSTOMER_ID           = CqlIdentifier.fromCql("customerid");
-    public static final CqlIdentifier CUSTOMER_EMAIL        = CqlIdentifier.fromCql("email");
-    public static final CqlIdentifier CUSTOMER_NAME         = CqlIdentifier.fromCql("name");
-    public static final CqlIdentifier CUSTOMER_PHONE        = CqlIdentifier.fromCql("phone");
-    public static final CqlIdentifier CUSTOMER_ADDRESS      = CqlIdentifier.fromCql("address");
+    public static final CqlIdentifier TABLE_CUSTOMERS = CqlIdentifier.fromCql("customers");
+    public static final CqlIdentifier CUSTOMER_ID = CqlIdentifier.fromCql("customerid");
+    public static final CqlIdentifier CUSTOMER_EMAIL = CqlIdentifier.fromCql("email");
+    public static final CqlIdentifier CUSTOMER_NAME = CqlIdentifier.fromCql("name");
+    public static final CqlIdentifier CUSTOMER_PHONE = CqlIdentifier.fromCql("phone");
+    public static final CqlIdentifier CUSTOMER_ADDRESS = CqlIdentifier.fromCql("address");
 
-    public static final CqlIdentifier TABLE_ORDERS          = CqlIdentifier.fromCql("orders");
-    public static final CqlIdentifier ORDER_ID              = CqlIdentifier.fromCql("orderid");
-    public static final CqlIdentifier ORDER_ADDED           = CqlIdentifier.fromCql("added");
-    public static final CqlIdentifier ORDER_CUSTOMER_ID     = CqlIdentifier.fromCql("customerid");
-    public static final CqlIdentifier ORDER_QUANTITY        = CqlIdentifier.fromCql("quantity");
+    public static final CqlIdentifier TABLE_ORDERS = CqlIdentifier.fromCql("orders");
+    public static final CqlIdentifier ORDER_ID = CqlIdentifier.fromCql("orderid");
+    public static final CqlIdentifier ORDER_ADDED = CqlIdentifier.fromCql("added");
+    public static final CqlIdentifier ORDER_CUSTOMER_ID = CqlIdentifier.fromCql("customerid");
+    public static final CqlIdentifier ORDER_QUANTITY = CqlIdentifier.fromCql("quantity");
 
 
     private PreparedStatement psExistCustomer;
@@ -63,19 +63,19 @@ public class OrderRepository {
     private PreparedStatement psFindAllOrders;
     private PreparedStatement psInsertOrder;
 
-    private CqlSession     cqlSession;
-    private CqlIdentifier  keyspaceName;
+    private CqlSession cqlSession;
+    private CqlIdentifier keyspaceName;
 
     public OrderRepository(
             @NonNull CqlSession cqlSession,
             @Qualifier("keyspace") @NonNull CqlIdentifier keyspaceName) {
-        this.cqlSession   = cqlSession;
+        this.cqlSession = cqlSession;
         this.keyspaceName = keyspaceName;
 
         prepareStatements();
         logger.info("Application initialized.");
     }
-    
+
 
     @PreDestroy
     public void cleanup() {
@@ -84,9 +84,6 @@ public class OrderRepository {
             logger.info("+ CqlSession has been successfully closed");
         }
     }
-    
-
-
 
 
     // ----------
@@ -107,7 +104,7 @@ public class OrderRepository {
 
     @NonNull
     public Optional<Customer> findCustomerById(@NonNull UUID anId) {
-        
+
         ResultSet resultSet = cqlSession.execute(psFindCustomer.bind(anId));
         Row row = resultSet.one();
 
@@ -122,17 +119,17 @@ public class OrderRepository {
     public UUID upsertCustomer(Customer aCustomer) {
         Objects.requireNonNull(aCustomer);
 
-        if( aCustomer.getId() == null ) {
+        if (aCustomer.getId() == null) {
             aCustomer.setId(UUID.randomUUID());
         }
 
         UserDefinedType udt = (UserDefinedType) psInsertCustomer.getVariableDefinitions().get("address").getType();
         Address a = aCustomer.getAddress();
         UdtValue addressValue = udt.newValue()
-                .setString(0,a.getStreet())
-                .setString(1,a.getCity())
-                .setString(2,a.getState())
-                .setString(3,a.getZipcode());
+                .setString(0, a.getStreet())
+                .setString(1, a.getCity())
+                .setString(2, a.getState())
+                .setString(3, a.getZipcode());
 
         // Insert into 'customers'
         BoundStatement bsInsertCustomer =
@@ -146,7 +143,6 @@ public class OrderRepository {
         cqlSession.execute(batchInsertReservation);
         return aCustomer.getId();
     }
-
 
 
     // -------
@@ -182,7 +178,7 @@ public class OrderRepository {
     public UUID upsertOrder(Order anOrder) {
         Objects.requireNonNull(anOrder);
 
-        if( anOrder.getOrderId() == null ) {
+        if (anOrder.getOrderId() == null) {
             anOrder.setOrderId(UUID.randomUUID());
         }
 
@@ -218,12 +214,12 @@ public class OrderRepository {
                     selectFrom(keyspaceName, TABLE_CUSTOMERS).all()
                             .build());
             psInsertCustomer = cqlSession.prepare(QueryBuilder.insertInto(keyspaceName, TABLE_CUSTOMERS)
-                            .value(CUSTOMER_ID, bindMarker(CUSTOMER_ID))
-                            .value(CUSTOMER_EMAIL, bindMarker(CUSTOMER_EMAIL))
-                            .value(CUSTOMER_NAME, bindMarker(CUSTOMER_NAME))
-                            .value(CUSTOMER_PHONE, bindMarker(CUSTOMER_PHONE))
-                            .value(CUSTOMER_ADDRESS, bindMarker(CUSTOMER_ADDRESS))
-                            .build());
+                    .value(CUSTOMER_ID, bindMarker(CUSTOMER_ID))
+                    .value(CUSTOMER_EMAIL, bindMarker(CUSTOMER_EMAIL))
+                    .value(CUSTOMER_NAME, bindMarker(CUSTOMER_NAME))
+                    .value(CUSTOMER_PHONE, bindMarker(CUSTOMER_PHONE))
+                    .value(CUSTOMER_ADDRESS, bindMarker(CUSTOMER_ADDRESS))
+                    .build());
 
             psExistOrder = cqlSession.prepare(selectFrom(keyspaceName, TABLE_ORDERS).column(ORDER_ID)
                     .where(column(ORDER_ID).isEqualTo(bindMarker(ORDER_ID)))
@@ -245,7 +241,6 @@ public class OrderRepository {
             logger.info("Statements have been successfully prepared.");
         }
     }
-
 
 
     private Customer mapRowToCustomer(Row row) {
@@ -270,7 +265,7 @@ public class OrderRepository {
         order.setOrderId(row.getUuid(ORDER_ID));
         order.setCustomerId(row.getUuid(ORDER_CUSTOMER_ID));
         order.setAdded(row.getInstant(ORDER_ADDED));
-        order.setQuantity((int)row.getByte(ORDER_QUANTITY));
+        order.setQuantity((int) row.getByte(ORDER_QUANTITY));
         return order;
     }
 }

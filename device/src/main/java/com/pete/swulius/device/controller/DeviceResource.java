@@ -18,14 +18,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/api/v1/")
-@Api(value = "/api/v1/", description = "Device service rest resources", tags = "Device" )
+@Api(value = "/api/v1/", description = "Device service rest resources", tags = "Device")
 public class DeviceResource {
 
     private static final Logger logger = LoggerFactory.getLogger(DeviceResource.class);
 
     @Autowired
     private DeviceRepository service;
-
 
 
     // -----------------

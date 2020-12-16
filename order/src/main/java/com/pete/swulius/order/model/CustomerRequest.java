@@ -23,8 +23,7 @@ public class CustomerRequest implements Serializable {
     private Address address;
 
 
-    public CustomerRequest()
-    {
+    public CustomerRequest() {
     }
 
 

@@ -6,7 +6,9 @@ import java.util.UUID;
 
 public class Customer implements Serializable {
 
-    /** Serial. */
+    /**
+     * Serial.
+     */
     private static final long serialVersionUID = -3392237616280919281L;
 
     private UUID id;
@@ -16,12 +18,11 @@ public class Customer implements Serializable {
     private Address address;
 
 
-    public Customer()
-    {
+    public Customer() {
     }
 
     public Customer(UUID anId, CustomerRequest aRequest) {
-        this( aRequest );
+        this(aRequest);
         id = anId;
     }
 

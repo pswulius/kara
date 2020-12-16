@@ -41,9 +41,7 @@ public class CityState {
             population = Integer.parseInt(split[2]);
             density = Integer.parseInt(split[3]);
             timezone = split[4];
-        }
-        catch( Exception e )
-        {
+        } catch (Exception e) {
             System.out.println("ERROR with line: " + aCommaSeperatedLine);
         }
     }
@@ -51,12 +49,15 @@ public class CityState {
     public String getCity() {
         return city;
     }
+
     public void setCity(String city) {
         this.city = city;
     }
+
     public String getState() {
         return state;
     }
+
     public void setState(String state) {
         this.state = state;
     }

@@ -7,7 +7,9 @@ import java.util.UUID;
 
 public class Address implements Serializable {
 
-    /** Serial. */
+    /**
+     * Serial.
+     */
     private static final long serialVersionUID = -3392237616230919281L;
 
     @ApiModelProperty(value = "Street address", example = "1234 Fake St.")
@@ -23,8 +25,7 @@ public class Address implements Serializable {
     private String zipcode;
 
 
-    public Address()
-    {
+    public Address() {
     }
 
     public String getStreet() {

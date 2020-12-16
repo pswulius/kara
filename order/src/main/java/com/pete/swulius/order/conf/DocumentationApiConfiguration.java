@@ -37,13 +37,13 @@ public class DocumentationApiConfiguration {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-            .groupName("OrderService")
-            .select()
-            .apis(RequestHandlerSelectors.basePackage("com.pete.swulius.order"))
-            .paths(PathSelectors.regex("/api/v1.*"))
-            .build()
-            .apiInfo(apiInfo())
-            .useDefaultResponseMessages(false);
+                .groupName("OrderService")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.pete.swulius.order"))
+                .paths(PathSelectors.regex("/api/v1.*"))
+                .build()
+                .apiInfo(apiInfo())
+                .useDefaultResponseMessages(false);
     }
 
     @Bean

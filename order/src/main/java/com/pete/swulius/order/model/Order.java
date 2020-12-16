@@ -18,8 +18,7 @@ public class Order implements Serializable {
     private Integer quantity;
 
 
-    public Order()
-    {
+    public Order() {
     }
 
     public Order(OrderRequest aRequest) {

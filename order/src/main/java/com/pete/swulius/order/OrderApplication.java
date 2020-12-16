@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class OrderApplication {
 
-private OrderRepository orderService;
+    private OrderRepository orderService;
+
     public static void main(String[] args) {
         SpringApplication.run(OrderApplication.class, args);
     }

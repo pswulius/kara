@@ -23,14 +23,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/api/v1/")
-@Api(value = "/api/v1/", description = "CityState Log service rest resources", tags = "Log (citystate)" )
+@Api(value = "/api/v1/", description = "CityState Log service rest resources", tags = "Log (citystate)")
 public class CityStateLogResource {
 
     private static final Logger logger = LoggerFactory.getLogger(CityStateLogResource.class);
 
     @Autowired
     private CityStateLogRepository service;
-
 
 
     // ------------------------
@@ -43,11 +42,11 @@ public class CityStateLogResource {
 
     @GetMapping("/citystatelog/{city}/{state}/{deviceid}/{added}")
     public Mono<ResponseEntity<CityStateLog>> getById(
-            @PathVariable(name="city") String aCity,
-            @PathVariable(name="state") String aState,
-            @PathVariable(name="deviceid") UUID aDeviceId,
-            @PathVariable(name="added") Instant anAdded) {
-        MapId id = BasicMapId.id("city",aCity ).with("state", aState).with("deviceid",aDeviceId).with("added", anAdded );
+            @PathVariable(name = "city") String aCity,
+            @PathVariable(name = "state") String aState,
+            @PathVariable(name = "deviceid") UUID aDeviceId,
+            @PathVariable(name = "added") Instant anAdded) {
+        MapId id = BasicMapId.id("city", aCity).with("state", aState).with("deviceid", aDeviceId).with("added", anAdded);
         return service.findById(id)
                 .map(saved -> ResponseEntity.ok(saved))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
@@ -64,7 +63,7 @@ public class CityStateLogResource {
             @PathVariable(value = "city") String aCity,
             @PathVariable(value = "state") String aState,
             @RequestBody CityStateLog aLog) {
-        MapId id = BasicMapId.id("city",aCity ).with("state", aState);
+        MapId id = BasicMapId.id("city", aCity).with("state", aState);
         return service.findById(id)
                 .flatMap(existingDevice -> {
                     // update fields

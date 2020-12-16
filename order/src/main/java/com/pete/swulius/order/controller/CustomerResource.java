@@ -29,11 +29,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api/v1/customer")
-@Api(value = "/api/v1/customer", description = "Customer service rest resources", tags = "Customer" )
+@Api(value = "/api/v1/customer", description = "Customer service rest resources", tags = "Customer")
 public class CustomerResource {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomerResource.class);
     private OrderRepository orderService;
+
     public CustomerResource(OrderRepository orderService) {
         this.orderService = orderService;
     }
@@ -55,19 +56,19 @@ public class CustomerResource {
 
     @RequestMapping(method = GET, value = "/{customerId}", produces = APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find customer with matching id", response = Customer.class)
-    @ApiParam(name="customerId", value="id for a customer", example = "4391e230-3c26-11eb-9680-3f1ca592bc5a", required=true )
+    @ApiParam(name = "customerId", value = "id for a customer", example = "4391e230-3c26-11eb-9680-3f1ca592bc5a", required = true)
     @ApiResponse(code = 200, message = "Return a Customer")
     public ResponseEntity<Customer> findCustomerById(
-            @ApiParam(name="customerId",
-            value="id for a customer",
-            example = "4391e230-3c26-11eb-9680-3f1ca592bc5a",
-            required=true )
-            @PathVariable(value = "customerId") String aCustomerId ) {
+            @ApiParam(name = "customerId",
+                    value = "id for a customer",
+                    example = "4391e230-3c26-11eb-9680-3f1ca592bc5a",
+                    required = true)
+            @PathVariable(value = "customerId") String aCustomerId) {
 
         logger.debug("Fetching customer by id: " + aCustomerId);
         Optional<Customer> customerById = orderService.findCustomerById(UUID.fromString(aCustomerId));
 
-        if( customerById.isEmpty() ) {
+        if (customerById.isEmpty()) {
             logger.warn("Customer not found with id [{}]", aCustomerId);
             return ResponseEntity.notFound().build();
         }
@@ -103,7 +104,6 @@ public class CustomerResource {
     }
 
 
-
     @RequestMapping(
             method = PUT,
             value = "/{customerId}",
@@ -117,16 +117,16 @@ public class CustomerResource {
             @ApiResponse(code = 400, message = "Customer id is blank or contains invalid characters (expecting alphanumeric)")
     })
     public ResponseEntity<Void> upsertCustomer(
-            @ApiParam(name="customerId",
+            @ApiParam(name = "customerId",
                     example = "4391e230-3c26-11eb-9680-3f1ca592bc5a",
-                    value="Id for a customer",
-                    required=true )
+                    value = "Id for a customer",
+                    required = true)
             @PathVariable(value = "customerId") String customerId,
             @RequestBody CustomerRequest aCustomerRequest) {
         validateId(customerId);
         logger.debug("Request to update customer {}", customerId);
         HttpStatus returnedStatus = orderService.exists(UUID.fromString(customerId)) ? HttpStatus.NO_CONTENT : HttpStatus.CREATED;
-        orderService.upsertCustomer(new Customer(UUID.fromString(customerId),aCustomerRequest));
+        orderService.upsertCustomer(new Customer(UUID.fromString(customerId), aCustomerRequest));
         return new ResponseEntity<>(returnedStatus);
     }
 
