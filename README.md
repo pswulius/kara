@@ -10,9 +10,11 @@ Cassandra.
 I have two Rest Api microservices defined, called **order** and **device**. They are both setup as IntelliJ modules so
 you can run them both in the same project. I recommend using the Services tab, and looking under Spring Boot.
 
-The **order** service runs on 8080, and uses simple synchronous spring web on Tomcat.
+The **order** service runs on 8082, and uses simple synchronous spring web on Tomcat.
 <br/>
 The **device** service runs on 8081, and is beginning to utilize an asynchronous webfux model, running under Netty.
+<br/>
+The **web** service runs on 8080, and is a simple web app using Thymeleaf.
 
 ## Data
 
