@@ -17,6 +17,8 @@
     <properties>
         <java.version>11</java.version>
         <swagger.version>2.9.2</swagger.version>
+        <oss-java-driver.version>4.5.1</oss-java-driver.version>
+        <groovy.version>3.0.7</groovy.version>
     </properties>
 
     <dependencies>
@@ -61,6 +63,39 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
+        </dependency>
+
+
+        <!-- Datastax cassandra stuff -->
+        <dependency>
+            <groupId>com.datastax.oss</groupId>
+            <artifactId>java-driver-core</artifactId>
+            <version>${oss-java-driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.datastax.oss</groupId>
+            <artifactId>java-driver-query-builder</artifactId>
+            <version>${oss-java-driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.datastax.oss</groupId>
+            <artifactId>native-protocol</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.datastax.cassandra/cassandra-driver-extras -->
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-extras</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy -->
+        <!-- included to get rid of the reflection warnings at startup -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>3.0.7</version>
+            <classifier>indy</classifier>
         </dependency>
 
     </dependencies>

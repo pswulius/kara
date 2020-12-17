@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cities | Kara.io</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/site.css" />
+</head>
+<body>
+
+
+<div class="page">
+
+    <header>
+        <a href="/"><img class="logo" src="/images/logo.svg"/></a>
+    </header>
+
+    <div class="menu">
+        <div><strong>Menu</strong></div>
+        <div><a href="/">Home</a></div>
+        <div><a href="/cities">View all cities</a></div>
+        <div><a href="/citylogs/Dallas/TX">Dallas TX</a></div>
+    </div>
+
+    <div class="main">
+        <h1>Cities</h1>
+
+        <table>
+            <tbody>
+            <tr th:if="${cities.isEmpty}">
+                <td colspan="2"> No Cities Available </td>
+            </tr>
+            <tr th:each="c:${cities}">
+                <td><span th:text="${c.city}"> City </span></td>
+                <td><span th:text="${c.state}"> State </span></td>
+                <td><a th:href="@{/citylogs/{city}/{state}(city=${c.city},state=${c.state})}">View logs for this city</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        Kara.io &#169; 2020
+        <a href="/">About</a> |
+        <a href="/">Blog</a> |
+        <a href="/">Team</a> |
+        <a href="/">Careers</a>
+    </footer>
+
+</div>
+</body>
+</html>

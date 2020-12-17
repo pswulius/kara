@@ -2,6 +2,7 @@ package com.pete.swulius.device.controller;
 
 import com.pete.swulius.device.model.CityStateLog;
 import com.pete.swulius.device.repository.CityStateLogRepository;
+import com.pete.swulius.device.repository.CityStateLogRepository2;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -31,6 +33,9 @@ public class CityStateLogResource {
     @Autowired
     private CityStateLogRepository service;
 
+    @Autowired
+    private CityStateLogRepository2 service2;
+
 
     // ------------------------
     // CityState Log Endpoints
@@ -38,6 +43,12 @@ public class CityStateLogResource {
     @RequestMapping(method = GET, value = "/citystatelog", produces = APPLICATION_JSON_VALUE)
     public Flux<CityStateLog> findAll() {
         return service.findAll();
+    }
+
+    @RequestMapping(method = GET, value = "/citystatelog/{city}/{state}", produces = APPLICATION_JSON_VALUE)
+    public List<CityStateLog> findLogsForCityState(@PathVariable(name = "city") String aCity,
+                                                   @PathVariable(name = "state") String aState) {
+        return service2.getLogsForCityState(aCity,aState);
     }
 
     @GetMapping("/citystatelog/{city}/{state}/{deviceid}/{added}")
@@ -56,6 +67,7 @@ public class CityStateLogResource {
     public Mono<CityStateLog> create(@RequestBody CityStateLog aLog) {
         return service.save(aLog);
     }
+
 
     @PutMapping("/citystatelog/{id}")
     @Deprecated

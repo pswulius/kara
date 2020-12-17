@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${csfull}"> City </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/site.css" />
+</head>
+<body>
+
+
+<div class="page">
+
+    <header>
+        <a href="/"><img class="logo" src="/images/logo.svg"/></a>
+    </header>
+
+    <div class="menu">
+        <div><strong>Menu</strong></div>
+        <div><a href="/">Home</a></div>
+        <div><a href="/cities">View all cities</a></div>
+        <div><a href="/citylogs/Dallas/TX">Dallas TX</a></div>
+    </div>
+
+    <div class="main">
+        <h1>Logs for
+            <span th:text="${csfull}"></span>
+        </h1>
+
+        <table>
+
+            <tr>
+                <th>City</th>
+                <th>State</th>
+                <th>Timestamp</th>
+                <th>Device</th>
+                <th>Value</th>
+            </tr>
+
+            <tr th:if="${logs.isEmpty}">
+                <td colspan="5"> No logs available </td>
+            </tr>
+
+            <tr th:each="l:${logs}">
+                <td><span th:text="${l.city}"> ... </span></td>
+                <td><span th:text="${l.state}"> ... </span></td>
+                <td><span th:text="${l.added}"> ... </span></td>
+                <td><span th:text="${l.deviceid}"> ... </span></td>
+                <td><span th:text="${l.value}"> ... </span></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <footer>
+        Kara.io &#169; 2020
+        <a href="/">About</a> |
+        <a href="/">Blog</a> |
+        <a href="/">Team</a> |
+        <a href="/">Careers</a>
+    </footer>
+
+</div>
+</body>
+</html>
